@@ -17,18 +17,13 @@
  *
  * @since 1.0.0
  */
+
+ if(!defined('ABSPATH')){
+    exit;
+}
+
 class circle_widget_elementore  extends \Elementor\Widget_Base {
 	
-
-	public function get_style_depends() {
-
-		// wp_register_style( 'wishes-style', plugins_url( 'assets/css/style.css', __FILE__ ) );
-
-		// return [
-		// 	'wishes-style',
-		// ];
-
-	}
 	
 
 	/**
