@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      background: #376be6;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    .disc-content{
+      margin-top: 750px;
+    }
+    .disc {
+      width: 660px;
+      height: 660px;
+      position: relative;
+      left: calc(50% - 330px);
+      transition: all 1s  ;
+      /* margin-top: 350px; */
+      display: inline-block;
+    }
+    .content{
+      display: flex;
+      /* justify-content: space-between; */
+      align-items: center;
+    }
+    .content .disc  .main-circle{
+      animation: unset;
+    }
+    .content .disc{
+      left: -13%;
+      transform: rotate(150deg);
+    }
+    
+    .content .disc .corner-images{
+      filter: grayscale(1); 
+    }
+    
+    .content .disc .corner-images.active{
+      filter: grayscale(0); 
+    }
+
+    .disc .main-circle {
+      position: relative;
+      height: 100%;
+      font-size: 0;
+      display: flex;
+      flex-wrap: wrap;
+      -webkit-animation: rotating 15s linear infinite;
+      -moz-animation: rotating 15s linear infinite;
+      -ms-animation: rotating 15s linear infinite;
+      -o-animation: rotating 15s linear infinite;
+      animation: rotating 15s linear infinite;
+    }
+
+    .disc .corner-images {
+      width: 220px;
+      vertical-align: top;
+      /* display: inline-block; */
+      display: grid;
+      transition: all 1s  ;
+    }
+
+
+    .disc .corner-images img {
+      max-width: 100%;
+    }
+    
+    .disc .main-circle .corner-images:nth-child(4){
+      order: 6;
+    }
+    .disc .main-circle .corner-images:nth-child(6){
+      order: 4;
+    }
+    .disc .main-circle .corner-images:nth-child(5){
+      order: 5;
+    }
+
+    .disc .main-circle .corner-images:nth-child(1) img {
+      max-width: unset;
+      width: 200px;
+      transform: translate(63px, 103px) rotate(-0.8deg);
+    }
+
+    .disc .main-circle .corner-images:nth-child(2) img {
+      max-width: unset;
+      width: 264px;
+      transform: translate(-24px, 36px) rotate(-1deg);
+    }
+
+    .disc .main-circle .corner-images:nth-child(3) img {
+      max-width: unset;
+      width: 200px;
+      transform: translate(-45px, 98px) rotate(-1.3deg);
+    }
+
+    .disc .main-circle .corner-images:nth-child(4) img {
+      max-width: unset;
+      width: 230px;
+      transform: translate(-42px, 13px) rotate(-1deg);
+    }
+
+    .disc .main-circle .corner-images:nth-child(5) img {
+      max-width: unset;
+      width: 264px;
+      transform: translate(-18px, 126px) rotate(-1deg);
+    }
+
+    .disc .main-circle .corner-images:nth-child(6) img {
+      max-width: unset;
+    width: 200px;
+    transform: translate(66px, -10px) rotate(-1deg);
+    }
+
+    .disc .center {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: -1;
+    }
+
+    .disc .center .center-content {
+      background: lightgray;
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      justify-content: center;
+      align-items: center;
+      display: flex;
+    }
+
+    @-webkit-keyframes rotating
+
+    /* Safari and Chrome */
+      {
+      from {
+        -webkit-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+      }
+
+      to {
+        -webkit-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes rotating {
+      from {
+        -ms-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+      }
+
+      to {
+        -ms-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+
+    .content-container{
+      width: calc(100% - 660px);
+      background-color: #cecece;
+      padding: 50px;
+      border-radius: 10px;
+      display: none;
+      /* display: inline-block; */
+    }
+    .content .content-container{
+      display: initial;
+      left: -13%;
+      position: relative;
+    }
+    /* .content .content-container .tab-buttons{
+      position: absolute;
+      top: calc(50% - 15px);
+    } */
+    .content .content-container  span{
+      position: absolute;
+      height: 30px;
+      width: 30px;
+      display: inline-block;
+      background-color: #cecece;
+      border-radius: 50%;
+      cursor: pointer;
+      left: -40px;
+      top: calc(50% - 15px);
+    }
+    .content .content-container  span:after{
+      position: absolute;
+      content: "";
+      width: 30%;
+      height: 30%;
+      top: 9px;
+      left: 10px;
+      border-bottom-left-radius: 5px;
+      display: block;
+      border-left: 3px solid black;
+      border-bottom: 3px solid black;
+      transform: rotate(45deg);
+    }
+
+      .content .content-container span.btn-next{
+        left: unset;
+        right: -40px;
+        
+      }
+    .content .content-container span.btn-next:after{
+      transform: rotate(-45deg);
+      border-left: unset;
+      border-bottom-left-radius: 0px;
+      border-bottom-right-radius: 5px;
+      border-right: 3px solid  black;
+      border-bottom: 3px solid black;
+      top: 9.5px;
+      left: 8px;
+    }
+    .content-container .tab-content .content-heading{
+      color: #376be6;
+      margin-bottom: 20px;
+      font-size: 35px;
+    }
+    .content-container .tab-content .content-text{
+      font-size: 25px;
+      /* line-height: 2; */
+    }
+    .content-container .tab-content{
+      display: none;
+    }
+    .content-container .tab-content.active{
+      display: initial;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="disc-content">
+  <div class="disc">
+    <div class="main-circle">
+      <div class="corner-images active">
+        <img src="Circle-Sections_0002_Layer-3.png">
+      </div>
+      <div class="corner-images">
+        <img src="Circle-Sections_0001_Layer-2.png">
+      </div>
+      <div class="corner-images ">
+        <img src="Circle-Sections_0000_Layer-1.png">
+      </div>
+      <div class="corner-images">
+        <img src="Circle-Sections_0005_Layer-6.png">
+      </div>
+      <div class="corner-images">
+        <img src="Circle-Sections_0004_Layer-5.png">
+      </div>
+      <div class="corner-images">
+        <img src="Circle-Sections_0003_Layer-4.png">
+      </div>
+    </div>
+    <div class="center">
+      <div class="center-content">center</div>
+    </div>
+  </div>
+  <div class="content-container">
+    <div class="tab-buttons">
+      <span class="btn-prev" data-deg="150"></span>
+      <span class="btn-next" data-deg="150"></span>
+    </div>
+    
+    <div class="tab-content active">
+      <h2 class="content-heading">Health Hubs</h2>
+      <p class="content-text">Designed to offer complimentary and supportive services, our Health Hubs are located within proximity to both public and private health precincts and provide a diverse range of health and medical service opportunities for the broader community.
+      </p>
+    </div>
+    <div class="tab-content">
+        <h2 class="content-heading">Group</h2>
+        <p class="content-text">Cornerstone is an integrated healthcare development group. We develop primary and specialised healthcare hubs across Australia—health centres of excellence, empowering true integration through multi-disciplinary care.
+        </p>
+    </div>
+    <div class="tab-content ">
+        <h2 class="content-heading">MLD</h2>
+        <p class="content-text">
+          MyLocalDoc is a network of locally operated GP Clinics throughout Australia. We aim to bring together local doctors and their community of patients with an outcome of exceptional patient care. Our practices are crafted to set a high standard of personal and professional general medicine for the entire family.
+        </p>
+    </div>
+    <div class="tab-content">
+        <h2 class="content-heading">Cornerstone Life</h2>
+        <p class="content-text">Our Christian convictions mean we effectively steward resources into our larger philanthropic vision, transforming lives at home and abroad. We are also aware of our responsibilities to steward the earth’s resources.
+        </p>
+    </div>
+    <div class="tab-content">
+        <h2 class="content-heading">Funds Management</h2>
+        <p class="content-text">
+          A long-term diverse healthcare fund developing and investing in the future of Australia's healthcare needs with the underlying purpose to 'create thriving communities'. We have established a team of excellence to manage our investments and asset portfolio. We look to partner with aligned investors for healthcare outcomes.
+        </p>
+    </div>
+    <div class="tab-content">
+        <h2 class="content-heading">Construction</h2>
+        <p class="content-text">With our origins in design and construction, we specialise in delivering integrated healthcare. Our expertise ranges from medicine, allied health, radiation and oncology, hospital, and education bringing significance to the communities.
+        </p>
+    </div>
+  </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+<script>
+
+  $(window).scroll(function () {
+    var bottom_of_object = $('.disc').offset().top + ($('.disc').outerHeight() * 0.8);
+    var bottom_of_window = $(window).scrollTop() + $(window).height();
+    if (bottom_of_window > bottom_of_object) {
+        $('.disc-content').addClass('content');
+    }else{
+      $('.disc-content').removeClass('content');
+    }
+  });
+
+  $(document).on('click','.btn-next',function(){
+    currentindex = $('.corner-images.active').index();
+    $('.corner-images').removeClass('active');
+    $('.tab-content').removeClass('active');
+    if(currentindex==5){
+      $('.corner-images').eq(0).addClass('active');
+      $(document).find('.tab-content').eq(0).addClass('active');
+    }else{
+      $('.corner-images').eq(currentindex).next().addClass('active');
+      $(document).find('.tab-content').eq(currentindex).next().addClass('active');
+    }
+
+    degree = parseInt($(this).data('deg')) - 60 ;
+    $(this).data('deg', degree) ;
+    $('.btn-prev').data('deg', degree) ;
+    $('.content .disc').css('transform', 'rotate('+degree+'deg)');
+  });
+
+  $(document).on('click','.btn-prev',function(){
+    currentindex = $('.corner-images.active').index();
+    $('.corner-images').removeClass('active');
+    $('.tab-content').removeClass('active');
+    if(currentindex==0){
+      $('.corner-images').eq(5).addClass('active');
+      $(document).find('.tab-content').eq(5).addClass('active');
+    }else{
+      $('.corner-images').eq(currentindex).prev().addClass('active');
+      $(document).find('.tab-content').eq(currentindex).prev().addClass('active');
+    }
+
+    degree = parseInt($(this).data('deg')) + 60 ;
+    $(this).data('deg', degree) ;
+    $('.btn-next').data('deg', degree) ;
+    $('.content .disc').css('transform', 'rotate('+degree+'deg)');
+  });
+
+</script>
+</body>
+
+</html>
