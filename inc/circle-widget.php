@@ -128,10 +128,22 @@ class circle_widget_elementore  extends \Elementor\Widget_Base {
         $this->add_control(
 			'general_logo',
 			[
-				'label' => esc_html__( 'Choose Image', 'circle-widget' ),
+				'label' => esc_html__( 'Center Logo', 'circle-widget' ),
 				'type' => \Elementor\Controls_Manager::MEDIA,
 				'default' => [
-					'url' =>   plugin_dir_url( __FILE__ ) . "assets/images/logo.png",
+					'url' =>   plugin_dir_url( __FILE__ ) . "assets/images/logo-c.png",
+				],
+			]
+		);
+
+
+        $this->add_control(
+			'rotating_logo',
+			[
+				'label' => esc_html__( 'Rotating Image', 'circle-widget' ),
+				'type' => \Elementor\Controls_Manager::MEDIA,
+				'default' => [
+					'url' =>   plugin_dir_url( __FILE__ ) . "assets/images/circuler-text.png",
 				],
 			]
 		);
@@ -567,6 +579,34 @@ class circle_widget_elementore  extends \Elementor\Widget_Base {
 				'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 			]
 		);
+
+		$this->add_control(
+			'content_align',
+			[
+				'label' => esc_html__( 'Text Alignment', 'circle-widget' ),
+				'type' => \Elementor\Controls_Manager::CHOOSE,
+				'options' => [
+					'left' => [
+						'title' => esc_html__( 'Left', 'circle-widget' ),
+						'icon' => 'eicon-text-align-left',
+					],
+					'center' => [
+						'title' => esc_html__( 'Center', 'circle-widget' ),
+						'icon' => 'eicon-text-align-center',
+					],
+					'right' => [
+						'title' => esc_html__( 'Right', 'circle-widget' ),
+						'icon' => 'eicon-text-align-right',
+					],
+				],
+				'default' => 'left',
+				'toggle' => true,
+				'selectors' => [
+					'{{WRAPPER}} .content-container .tab-content' => 'text-align: {{VALUE}};',
+					'{{WRAPPER}} .tab-content a' => 'float: {{VALUE}};',
+				],
+			]
+		);
 		
         $this->add_group_control(
 			\Elementor\Group_Control_Typography::get_type(),
@@ -604,30 +644,6 @@ class circle_widget_elementore  extends \Elementor\Widget_Base {
 				'default' => '#cecece',
 				'selectors' => [
 					'{{WRAPPER}} .content .content-container' => 'background-color: {{VALUE}};'
-				],
-			]
-		);
-		
-		$this->add_control(
-			'arrows_bg_color',
-			[
-				'label' => esc_html__( 'Arrows Background Color', 'circle-widget' ),
-				'type' => \Elementor\Controls_Manager::COLOR,
-				'default' => '#cecece',
-				'selectors' => [
-					'{{WRAPPER}} .content .content-container span' => 'background-color:{{VALUE}};'
-				],
-			]
-		);
-		
-		$this->add_control(
-			'arrows_color',
-			[
-				'label' => esc_html__( 'Arrows Color', 'circle-widget' ),
-				'type' => \Elementor\Controls_Manager::COLOR,
-				'default' => '#000',
-				'selectors' => [
-					'{{WRAPPER}} .content .content-container span:after' => 'border-color:{{VALUE}};'
 				],
 			]
 		);
@@ -733,31 +749,6 @@ class circle_widget_elementore  extends \Elementor\Widget_Base {
 		
 		
 		$this->add_control(
-			'arrows_bg_color_hover',
-			[
-				'label' => esc_html__( 'Arrows Background Color Hover', 'circle-widget' ),
-				'type' => \Elementor\Controls_Manager::COLOR,
-				'default' => '#cecece',
-				'selectors' => [
-					'{{WRAPPER}} .content .content-container span:hover' => 'background-color:{{VALUE}};'
-				],
-			]
-		);
-		
-		$this->add_control(
-			'arrows_color_hover',
-			[
-				'label' => esc_html__( 'Arrows Color Hover', 'circle-widget' ),
-				'type' => \Elementor\Controls_Manager::COLOR,
-				'default' => '#000',
-				'selectors' => [
-					'{{WRAPPER}} .content .content-container span:hover:after' => 'border-color:{{VALUE}};'
-				],
-			]
-		);
-		
-		
-		$this->add_control(
 			'card_buttonbg_color_hover',
 			[
 				'label' => esc_html__( 'Button Bg Color Hover', 'circle-widget' ),
@@ -823,281 +814,282 @@ class circle_widget_elementore  extends \Elementor\Widget_Base {
 		// var_dump($settings['posts_include_terms']);
         
         ?>
-  <style>
+		<style>
 
-    .disc-content * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+			.disc-content * {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			}
 
-    .disc-content{  
-      overflow: hidden;
-    }
-    .disc {
-      width: 660px;
-      height: 660px;
-      position: relative;
-      left: calc(50% - 330px);
-      transition: all 1s  ;
-      /* margin-top: 350px; */
-      display: inline-block;
-      z-index: 22;
-      transform: scale(1.2);
-    }
-    .content{
-      display: flex;
-      /* justify-content: space-between; */
-      align-items: center;
-    }
-    .content .disc  .main-circle{
-      animation: unset;
-      transition: all 1s;
-      transform: rotate(150deg);
-    }
-    .content .disc{
-      left: -13%;
-      }
-   
-    .content .disc .corner-images{
-      filter: grayscale(1); 
-    }
-    
-    .content .disc .corner-images.active{
-      filter: grayscale(0); 
-    }
+			.disc-content{  
+			overflow: hidden;
+			text-align: center;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+			}
+			.disc {
+			width: 660px;
+			height: 660px;
+			position: relative;
+			transition: all 1s  ;
+			z-index: 22;
+			}
+		
+			/* .disc{
+			left: -13%;
+			} */
+		
+			.disc .corner-images{
+			filter: grayscale(1); 
+			}
+			.disc .corner-images:hover,
+			.disc .corner-images.active{
+			filter: grayscale(0); 
+			}
 
-    .disc .main-circle {
-      position: relative;
-      height: 100%;
-      font-size: 0;
-      display: flex;
-      flex-wrap: wrap;
-      -webkit-animation: rotating 15s linear infinite;
-      -moz-animation: rotating 15s linear infinite;
-      -ms-animation: rotating 15s linear infinite;
-      -o-animation: rotating 15s linear infinite;
-      animation: rotating 15s linear infinite;
-    }
+			.disc .main-circle {
+			position: relative;
+			height: 100%;
+			font-size: 0;
+			display: flex;
+			flex-wrap: wrap;
+			z-index: 2222;
+			/* -webkit-animation: rotating 15s linear infinite;
+			-moz-animation: rotating 15s linear infinite;
+			-ms-animation: rotating 15s linear infinite;
+			-o-animation: rotating 15s linear infinite;
+			animation: rotating 15s linear infinite; */
+			}
 
-    .disc .corner-images {
-      width: 220px;
-      vertical-align: top;
-      /* display: inline-block; */
-      display: grid;
-      transition: all 1s  ;
-    }
+			.disc .corner-images {
+			width: 220px;
+			vertical-align: top;
+			/* display: inline-block; */
+			display: grid;
+			transition: all 1s  ;
+			cursor: pointer;
+			}
 
 
-    .disc .corner-images img {
-      max-width: 100%;
-    }
-    
-    .disc .main-circle .corner-images:nth-child(4){
-      order: 6;
-    }
-    .disc .main-circle .corner-images:nth-child(6){
-      order: 4;
-    }
-    .disc .main-circle .corner-images:nth-child(5){
-      order: 5;
-    }
+			.disc .corner-images img {
+			max-width: 100%;
+			}
+			
+			.disc .main-circle .corner-images:nth-child(4){
+			order: 6;
+			}
+			.disc .main-circle .corner-images:nth-child(6){
+			order: 4;
+			}
+			.disc .main-circle .corner-images:nth-child(5){
+			order: 5;
+			}
 
-    .disc .main-circle .corner-images:nth-child(1) img {
-      max-width: unset;
-      width: 200px;
-      transform: translate(63px, 103px) rotate(-0.8deg);
-    }
+			.disc .main-circle .corner-images:nth-child(1) img {
+			max-width: unset;
+			width: 200px;
+			transform: translate(63px, 103px) rotate(-0.8deg);
+			}
 
-    .disc .main-circle .corner-images:nth-child(2) img {
-      max-width: unset;
-      width: 264px;
-      transform: translate(-24px, 36px) rotate(-1deg);
-    }
+			.disc .main-circle .corner-images:nth-child(2) img {
+			max-width: unset;
+			width: 264px;
+			transform: translate(-24px, 36px) rotate(-1deg);
+			}
 
-    .disc .main-circle .corner-images:nth-child(3) img {
-      max-width: unset;
-      width: 200px;
-      transform: translate(-45px, 98px) rotate(-1.3deg);
-    }
+			.disc .main-circle .corner-images:nth-child(3) img {
+			max-width: unset;
+			width: 200px;
+			transform: translate(-45px, 98px) rotate(-1.3deg);
+			}
 
-    .disc .main-circle .corner-images:nth-child(4) img {
-      max-width: unset;
-      width: 230px;
-      transform: translate(-42px, 13px) rotate(-1deg);
-    }
+			.disc .main-circle .corner-images:nth-child(4) img {
+			max-width: unset;
+			width: 230px;
+			transform: translate(-42px, 13px) rotate(-1deg);
+			}
 
-    .disc .main-circle .corner-images:nth-child(5) img {
-      max-width: unset;
-      width: 264px;
-      transform: translate(-18px, 126px) rotate(-1deg);
-    }
+			.disc .main-circle .corner-images:nth-child(5) img {
+			max-width: unset;
+			width: 264px;
+			transform: translate(-18px, 126px) rotate(-1deg);
+			}
 
-    .disc .main-circle .corner-images:nth-child(6) img {
-      max-width: unset;
-    width: 200px;
-    transform: translate(66px, -10px) rotate(-1deg);
-    }
+			.disc .main-circle .corner-images:nth-child(6) img {
+			max-width: unset;
+			width: 200px;
+			transform: translate(66px, -10px) rotate(-1deg);
+			}
 
-    .disc .center {
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 1;
-    }
-    .content .disc .center{
-      display: none;
-    }
-    .disc .center .center-content {
-      /* background: lightgray; */
-      width: 250px;
-      height: 250px;
-      border-radius: 50%;
-      justify-content: center;
-      align-items: center;
-      display: flex;
-    }
-    
-    .disc .center .center-content img{
-      max-width: 80%;
-    }
+			.disc .center {
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			z-index: 1;
+			}
+			/* .content .disc .center{
+			display: none;
+			} */    
+			.disc .center .center-content .rotated-text{
+			-webkit-animation: rotating 15s linear infinite;
+			-moz-animation: rotating 15s linear infinite;
+			-ms-animation: rotating 15s linear infinite;
+			-o-animation: rotating 15s linear infinite;
+			animation: rotating 15s linear infinite; 
+			}
+			
+			.disc .center .center-content {
+			/* background: lightgray; */
+			width: 250px;
+			height: 250px;
+			border-radius: 50%;
+			justify-content: center;
+			align-items: center;
+			display: flex;
+			position: relative;
+			}
+			
+			.disc .center .center-content img{
+			max-width: 80%;
+			position: absolute;
+			}
 
-    
-    .tab-content a{
-        background: #376be6;
-        color: white;
-        padding: 4px 20px;
-        border-radius: 8px;
-        display: inline-block;
-    }
+			@-webkit-keyframes rotating
 
-    .tab-content .content-text{
-        margin-top: 0;
-        margin-bottom: 10px;
-    }
+			/* Safari and Chrome */
+			{
+			from {
+				-webkit-transform: rotate(0deg);
+				-o-transform: rotate(0deg);
+				transform: rotate(0deg);
+			}
 
-    .tab-content .content-heading{
-        margin-top: 0;
-    }
+			to {
+				-webkit-transform: rotate(360deg);
+				-o-transform: rotate(360deg);
+				transform: rotate(360deg);
+			}
+			}
 
-    @-webkit-keyframes rotating
+			@keyframes rotating {
+			from {
+				-ms-transform: rotate(0deg);
+				-moz-transform: rotate(0deg);
+				-webkit-transform: rotate(0deg);
+				-o-transform: rotate(0deg);
+				transform: rotate(0deg);
+			}
 
-    /* Safari and Chrome */
-      {
-      from {
-        -webkit-transform: rotate(0deg);
-        -o-transform: rotate(0deg);
-        transform: rotate(0deg);
-      }
+			to {
+				-ms-transform: rotate(360deg);
+				-moz-transform: rotate(360deg);
+				-webkit-transform: rotate(360deg);
+				-o-transform: rotate(360deg);
+				transform: rotate(360deg);
+			}
+			}
 
-      to {
-        -webkit-transform: rotate(360deg);
-        -o-transform: rotate(360deg);
-        transform: rotate(360deg);
-      }
-    }
+			.content-container{
+			width: 85%;
+			background-color: #cecece;
+			padding: 50px;
+			border-radius: 10px;
+			transition: all 0.6s ease-in-out;
+			margin-bottom: 10px;
+			/* margin: auto; */
+			/* position: fixed; */
+			}
 
-    @keyframes rotating {
-      from {
-        -ms-transform: rotate(0deg);
-        -moz-transform: rotate(0deg);
-        -webkit-transform: rotate(0deg);
-        -o-transform: rotate(0deg);
-        transform: rotate(0deg);
-      }
+		
+			.content-container  span{
+			position: absolute;
+			height: 30px;
+			width: 30px;
+			display: inline-block;
+			background-color: #cecece;
+			border-radius: 50%;
+			cursor: pointer;
+			right: -40px;
+			top: 120px;
+			}
+			.content-container  span:after{
+			position: absolute;
+			content: "";
+			width: 30%;
+			height: 30%;
+			top: 8px;
+			left: 9px;
+			border-top-left-radius: 5px;
+			display: block;
+			border-left: 3px solid black;
+			border-top: 3px solid black;
+			transform: rotate(-137deg);
+			}
 
-      to {
-        -ms-transform: rotate(360deg);
-        -moz-transform: rotate(360deg);
-        -webkit-transform: rotate(360deg);
-        -o-transform: rotate(360deg);
-        transform: rotate(360deg);
-      }
-    }
+			.content-container span.btn-next{
+				left: unset;
+				right: -40px;
+				top: 80px;
+				
+			}
+			.content-container span.btn-next:after{
+			transform: rotate(-45deg);
+			border-left: unset;
+			border-top-left-radius: 0px;
+			border-top-right-radius: 5px;
+			border-right: 3px solid  black;
+			border-top: 3px solid black;
+			top: 10.5px;
+			left: 9px;
+			}
+			.content-container .tab-content .content-heading{
+			color: #376be6;
+			margin-bottom: 20px;
+			font-size: 35px;
+			}
+			.content-container .tab-content .content-text{
+			font-size: 25px;
+			/* line-height: 2; */
+			}
+			.content-container .tab-content{
+			display: none;
+			}
+			.content-container .tab-content.active{
+			display: initial;
+			}
+			.tab-content a{
+				background: #376be6;
+				color: white;
+				padding: 4px 20px;
+				border-radius: 8px;
+				display: block;
+				width: fit-content;
+				margin: auto;
+			}
 
-    .content-container{
-      width: calc(100% - 660px);
-      background-color: #cecece;
-      padding: 50px;
-      border-radius: 10px;
-      /* visibility: hidden; */
-      right: -100%;
-      /* transform: translate(192%,0); */
-      transition: all 1s ease-in-out;
-      position: fixed;
-    }
-    .content .content-container{
-      /* left: -13%; */
-      right: 13%;
-      transform: translate(0,0);
-      position: relative;
-      /* visibility: visible; */
-    }
-    /* .content .content-container .tab-buttons{
-      position: absolute;
-      top: calc(50% - 15px);
-    } */
-    .content .content-container  span{
-      position: absolute;
-      height: 30px;
-      width: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: #cecece;
-      border-radius: 50%;
-      cursor: pointer;
-      right: -40px;
-      top: 120px;
-    }
-    .content .content-container  span:after{
-      content: "";
-      width: 30%;
-      height: 30%;
-      border-top-left-radius: 5px;
-      display: block;
-      border-left: 3px solid black;
-      border-top: 3px solid black;
-      transform: rotate(-137deg);
-    }
+			.tab-content .content-text{
+				margin-top: 0;
+				margin-bottom: 10px;
+			}
 
-      .content .content-container span.btn-next{
-        left: unset;
-        right: -40px;
-        top: 80px;
-        
-      }
-    .content .content-container span.btn-next:after{
-      transform: rotate(-45deg);
-      border-left: unset;
-      border-top-left-radius: 0px;
-      border-top-right-radius: 5px;
-      border-right: 3px solid  black;
-      border-top: 3px solid black;
-      top: 10.5px;
-      left: 9px;
-    }
-    .content-container .tab-content .content-heading{
-      color: #376be6;
-      margin-bottom: 20px;
-      font-size: 35px;
-    }
-    .content-container .tab-content .content-text{
-      font-size: 25px;
-      /* line-height: 2; */
-    }
-    .content-container .tab-content{
-      display: none;
-    }
-    .content-container .tab-content.active{
-      display: initial;
-    }
-  </style>
+			.tab-content .content-heading{
+				margin-top: 0;
+			}
+			@media (max-width: 568px) {
+				.content-container{
+					width: 100%;
+					padding: 25px;
+				}
+			}
+		</style>
         <div class="disc-content content">
             <div class="disc">
                 <div class="main-circle">
@@ -1121,15 +1113,12 @@ class circle_widget_elementore  extends \Elementor\Widget_Base {
                 </div>
                 </div>
                 <div class="center">
-                <div class="center-content"><img src="<?php  echo $settings['general_logo']['url']; ?>"></div>
+					<div class="center-content">
+						<img src="<?php  echo $settings['rotating_logo']['url']; ?>" class="rotated-text">
+						<img src="<?php  echo $settings['general_logo']['url']; ?>"></div>
                 </div>
             </div>
-            <div class="content-container">
-                <div class="tab-buttons">
-                <span class="btn-prev" data-deg="150"></span>
-                <span class="btn-next" data-deg="150"></span>
-                </div>
-                
+            <div class="content-container">    
                 <div class="tab-content active">
                     <h2 class="content-heading"><?php echo $settings['card_title_one']; ?></h2>
                     <p class="content-text"><?php echo $settings['card_desc_one']; ?>
@@ -1205,54 +1194,13 @@ class circle_widget_elementore  extends \Elementor\Widget_Base {
             </div>
         </div>
         <script>
-
-            jQuery(window).scroll(function () {
-            var bottom_of_object = jQuery('.disc').offset().top + (jQuery('.disc').outerHeight() * 0.8);
-            var bottom_of_window = jQuery(window).scrollTop() + jQuery(window).height();
-            console.log( bottom_of_window );
-            if (bottom_of_window > bottom_of_object && bottom_of_window < bottom_of_object+400) {
-                jQuery('.disc-content').addClass('content');
-            }else{
-                jQuery('.disc-content').removeClass('content');
-            }
-            });
-
-            jQuery(document).on('click','.btn-next',function(){
-            currentindex = jQuery('.corner-images.active').index();
-            jQuery('.corner-images').removeClass('active');
-            jQuery('.tab-content').removeClass('active');
-            if(currentindex==5){
-                jQuery('.corner-images').eq(0).addClass('active');
-                jQuery(document).find('.tab-content').eq(0).addClass('active');
-            }else{
-                jQuery('.corner-images').eq(currentindex).next().addClass('active');
-                jQuery(document).find('.tab-content').eq(currentindex).next().addClass('active');
-            }
-
-            degree = parseInt(jQuery(this).data('deg')) - 60 ;
-            jQuery(this).data('deg', degree) ;
-            jQuery('.btn-prev').data('deg', degree) ;
-            jQuery('.content .disc .main-circle').css('transform', 'rotate('+degree+'deg)');
-            });
-
-            jQuery(document).on('click','.btn-prev',function(){
-            currentindex = jQuery('.corner-images.active').index();
-            jQuery('.corner-images').removeClass('active');
-            jQuery('.tab-content').removeClass('active');
-            if(currentindex==0){
-                jQuery('.corner-images').eq(5).addClass('active');
-                jQuery(document).find('.tab-content').eq(5).addClass('active');
-            }else{
-                jQuery('.corner-images').eq(currentindex).prev().addClass('active');
-                jQuery(document).find('.tab-content').eq(currentindex).prev().addClass('active');
-            }
-
-            degree = parseInt(jQuery(this).data('deg')) + 60 ;
-            jQuery(this).data('deg', degree) ;
-            jQuery('.btn-next').data('deg', degree) ;
-            jQuery('.content .disc .main-circle').css('transform', 'rotate('+degree+'deg)');
-            });
-
+			jQuery(document).on('click','.corner-images',function(){
+				currentindex = jQuery(this).index();
+				jQuery('.corner-images').removeClass('active');
+				jQuery('.tab-content').removeClass('active');
+				jQuery(this).addClass('active');
+				jQuery(document).find('.tab-content').eq(currentindex).addClass('active');
+			});
         </script>
         <?php
 	}
